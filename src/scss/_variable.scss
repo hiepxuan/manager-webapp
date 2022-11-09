@@ -1,0 +1,57 @@
+:root {
+    --collapsed-size: 70px;
+    --offscreen-size: 280px;
+    $border-color: rgba(0, 0, 0, 0.0625);
+    --default-primary: #0f9d58;
+
+    $default-danger : #ff3c7e;
+    $default-dark : #313435;
+    $default-grey : #565a5c;
+    $default-info : #0f9aee;
+    $default-success : #37c936;
+    $default-text-color : #303238;
+    $default-warning : #fc0;
+    $default-white : #fff;
+
+    $grey-100 : #f9fafb;
+    $grey-200 : #f2f3f5;
+    $grey-300 : #e6eaf0;
+    $grey-400 : #d3d9e3;
+    $grey-500 : #b9c2d0;
+    $grey-600 : #7c8695;
+    $grey-700 : #72777a;
+    $grey-800 : #565a5c;
+    $grey-900 : #313435;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 1.6rem;
+    font-family: 'Quicksand', sans-serif;
+    scroll-behavior: smooth;
+    width: 100%;
+}
+
+input {
+    font-size: 1.6rem !important;
+    outline: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.ck-content {
+    min-height: 240px;
+}
+
+p {
+    margin: 0;
+}
