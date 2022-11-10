@@ -18,6 +18,7 @@ const InputAttributeType = (props) => {
         // disabled={true}
         // value={type}
         type="select"
+        className="InputAttributeType"
         onChange={_handleChangeSelect}
       >
         <option selected defaultValue={"DEFAULT"} disabled>

@@ -29,7 +29,8 @@ const InputAttributeName = (props) => {
     setData({ ...data, name: e.target.value });
   };
   useEffect(() => {
-    onChangeAttribute("name", attribute.position, name);
+    console.log(name);
+    onChangeAttribute("name", attribute.position, name, true);
   }, [name]);
   return (
     <td className="InputAttributeName">

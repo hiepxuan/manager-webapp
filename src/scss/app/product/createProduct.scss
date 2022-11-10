@@ -57,3 +57,23 @@
         }
     }
 }
+.InputAttributeType {
+    font-size: 1.6rem;
+}
+
+.AddAttribute {
+    font-size: 1.6rem;
+}
+
+.VariantsTableContainer {
+    width: 100%;
+    overflow-x: scroll;
+}
+
+.VariantsTable {
+    width: 100vw;
+
+    th {
+        min-width: 150px;
+    }
+}

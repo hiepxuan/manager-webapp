@@ -23,7 +23,7 @@
 
 
         .active {
-            background-color: #1c8f42;
+            color: #1c8f42;
         }
     }
 
@@ -101,10 +101,14 @@
 .MainContentInner {
     padding: 10px;
     background-color: rgb(244, 244, 244);
-    width: 100%;
+    width: calc(100vw - var(--offscreen-size));
     height: calc(100vh - 100px);
     overflow-y: scroll;
-
+    &.isCollapsed {
+            .MainContentInner {
+                width: calc(100vw - var(--collapsed-size));
+            }
+        }
     .SectionInner {
         background-color: #fff;
         padding: 30px 15px;

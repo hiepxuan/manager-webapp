@@ -1,13 +1,12 @@
 import { Editor } from "@tinymce/tinymce-react";
 import { useEffect, useRef, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import PFTable from "../../../Components/Tables/PFTable";
+import generateVariants from "../../../helpers/generateVariants";
 import ProductAttributesList from "./attributes/ProductAttributesList";
-import VariantTableHead from "./variants/VariantsTableHead";
-import VariantTableBody from "./variants/VariantTableBody";
+import VariantsTable from "./variants/VariantsTable";
 const CreateProduct = () => {
   const [attributes, setAttributes] = useState([]);
-  const [countAttribute, setCountAttribute] = useState(0);
+  const [variants, setVariants] = useState([]);
   const editorRef = useRef(null);
   const getDescription = () => {
     if (editorRef.current) {
@@ -19,6 +18,7 @@ const CreateProduct = () => {
       setAttributes([
         ...attributes,
         {
+          is_preselected: true,
           position: attributes.length + 1,
           type: "",
           name: "",
@@ -32,6 +32,7 @@ const CreateProduct = () => {
       setAttributes([
         ...attributes,
         {
+          is_preselected: true,
           position: attributes.length + 1,
           type: "",
           name: "",
@@ -50,7 +51,7 @@ const CreateProduct = () => {
       setAttributes([...newAttributes, attribute]);
     }
   };
-  const onChangeAttribute = (key, vKey, value) => {
+  const onChangeAttribute = (key, vKey, value, hasVariants = false) => {
     const newAttribute =
       attributes &&
       attributes.map((item) => {
@@ -59,11 +60,16 @@ const CreateProduct = () => {
         }
         return item;
       });
+    if (hasVariants) {
+      const variants = generateVariants(attributes);
+      setVariants(variants);
+    }
     setAttributes(newAttribute);
   };
-  // useEffect(() => {
-  //   console.log(attributes);
-  // }, [attributes]);
+  useEffect(() => {
+    const variants = generateVariants(attributes);
+    setVariants(variants);
+  }, [attributes]);
   return (
     <div className="CreateProductPage">
       <h1>Create Product</h1>
@@ -172,6 +178,7 @@ const CreateProduct = () => {
             <ProductAttributesList
               onChangeAttribute={onChangeAttribute}
               attributes={attributes}
+              setAttributes={setAttributes}
             />
           ) : (
             ""
@@ -179,7 +186,7 @@ const CreateProduct = () => {
           <Button
             color="primary"
             outline
-            className="mt-3"
+            className="mt-3 AddAttribute"
             onClick={() => _handleAddAttribute()}
           >
             Add new attribute
@@ -189,11 +196,8 @@ const CreateProduct = () => {
       <div className="SectionInner">
         <h1>Variants</h1>
         <p>Manage the variations of this product below..</p>
-        <div className="">
-          <PFTable>
-            <VariantTableHead />
-            <VariantTableBody />
-          </PFTable>
+        <div className="VariantsTableContainer">
+          <VariantsTable attributes={attributes} variants={variants} />
         </div>
       </div>
       <div className="SectionInner FooterCreate">
@@ -203,6 +207,6 @@ const CreateProduct = () => {
       </div>
     </div>
   );
-};
+};;
 
 export default CreateProduct;
