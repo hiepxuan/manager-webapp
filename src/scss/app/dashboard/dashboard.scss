@@ -94,6 +94,9 @@
         .NavbarTop {
             width: calc(100vw - var(--collapsed-size));
         }
+.MainContentInner {
+    width: calc(100vw - var(--collapsed-size));
+}
     }
 }
 
@@ -104,11 +107,7 @@
     width: calc(100vw - var(--offscreen-size));
     height: calc(100vh - 100px);
     overflow-y: scroll;
-    &.isCollapsed {
-            .MainContentInner {
-                width: calc(100vw - var(--collapsed-size));
-            }
-        }
+
     .SectionInner {
         background-color: #fff;
         padding: 30px 15px;
