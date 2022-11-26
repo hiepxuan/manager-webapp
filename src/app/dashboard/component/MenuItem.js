@@ -5,7 +5,6 @@ import classNames from "classnames";
 const MenuItem = (props) => {
   const { item, pathname } = props;
   const { title, icon, href } = item;
-  const isActive = pathname.includes(href);
   return (
     <div className="">
       <NavLink to={href} className={classNames("nav-link")}>

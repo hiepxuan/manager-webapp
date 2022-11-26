@@ -3,6 +3,7 @@ import VariantImageContainer from "./VariantImageContainer";
 import VariantSelector from "./VariantSelector";
 import VariantSKU from "./VariantSKU";
 import VariantFromAttributes from "./VariantFromAttributes";
+import VariantRetailPrice from "./VariantRetailPrice";
 import VariantWeight from "./VariantWeight";
 
 class VariantRow extends Component {
@@ -14,7 +15,7 @@ class VariantRow extends Component {
         <VariantFromAttributes {...this.props} />
         <VariantSKU {...this.props} />
         <VariantWeight {...this.props} />
-        {/* <VariantRetailPrice {...this.props} /> */}
+        <VariantRetailPrice {...this.props} />
         {/* <VariantDefault {...this.props} /> */}
       </tr>
     );

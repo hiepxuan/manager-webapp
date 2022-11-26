@@ -57,6 +57,8 @@ const InputAttributeValue = (props) => {
       {
         name: attribute.type === "color" ? name : value,
         value: value,
+        position: attribute.values.length ? attribute.values.length + 1 : 1,
+        slug: name.toLocaleLowerCase(),
       },
     ];
     onChangeAttribute("values", attribute.position, dataValues);

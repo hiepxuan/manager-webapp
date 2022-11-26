@@ -9,6 +9,7 @@ const routes = [
     name: "Sign Up",
     key: "sign-up",
     route: "/product",
+    layout: "admin",
     component: <ProductContainer />,
   },
   {
@@ -16,6 +17,7 @@ const routes = [
     name: "Sign Up",
     key: "sign-up",
     route: "/product/create",
+    layout: "admin",
     component: <CreateProduct />,
   },
   {
@@ -23,6 +25,7 @@ const routes = [
     name: "Sign Up",
     key: "sign-up",
     route: "/account",
+    layout: "admin",
     component: <Account />,
   },
   {
@@ -30,6 +33,7 @@ const routes = [
     name: "Sign Up",
     key: "sign-up",
     route: "/account/tets",
+    layout: "admin",
     component: <Category />,
   },
 ];

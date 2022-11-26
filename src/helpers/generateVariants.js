@@ -26,15 +26,16 @@ export default function (attributes) {
       return {
         name: attValue.name,
         value: attValue.value,
+        position: attValue.position,
+        slug: attValue.slug,
       };
     });
   });
-  console.log("***********************", attributesReformatted);
 
   let variants = generate(...attributesReformatted);
 
   variants = variants.map((options, index) => {
-    const imagePath = options.reduce((acc, option) => {
+    const imagePath = options.reduce((acc, option, index) => {
       return option.is_preselected ? [...acc, option.value] : acc;
     }, []);
 

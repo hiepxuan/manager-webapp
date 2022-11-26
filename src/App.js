@@ -1,53 +1,17 @@
-import classNames from "classnames";
-import { useContext } from "react";
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
-import NavbarLeft from "./app/dashboard/component/NavbarLeft";
-import NavbarTop from "./app/dashboard/component/NavbarTop";
-import { DataContext } from "./context/AppContext";
-import Admin from "./layouts/Admin";
-import routes from "./_routes";
+import { Navigate, Route, Routes } from "react-router-dom";
+import Dashboard from "./app/dashboard/component/Dashboard";
+import SignIn from "./Components/auth/signIn/singIn";
+import SignUp from "./Components/auth/singUp/SingUp";
 
 function App() {
-  const location = useLocation();
-  const { pathname } = location;
-  const getRoutes = (allRoutes) =>
-    allRoutes.map((route) => {
-      // if (route.collapse) {
-      //   return getRoutes(route.collapse);
-      // }
-
-      if (route.route) {
-        const Page = route.component;
-        const LayOut = Admin;
-        return (
-          <Route
-            path={`/admin${route.route}`}
-            element={<LayOut data={route.props}>{Page}</LayOut>}
-            key={route.key}
-          />
-        );
-      }
-
-      return null;
-    });
-  const { isCollapsed } = useContext(DataContext);
-
   return (
-    <div className={classNames("DashboardContainer", { isCollapsed })}>
-      <NavbarLeft pathname={pathname} />
-
-      <div className="DashboardInner">
-        <NavbarTop />
-
-        <div className="MainContent">
-          <div className="MainContentInner">
-            <Routes>
-              {getRoutes(routes)}
-              <Route path="/" element={<Navigate to="/a" />} />
-            </Routes>
-          </div>
-        </div>
-      </div>
+    <div className="App">
+      <Routes>
+        <Route path="/a/*" element={<Dashboard />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/" element={<Navigate to={"/a"} />} />
+      </Routes>
     </div>
   );
 }

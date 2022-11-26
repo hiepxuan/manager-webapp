@@ -8,11 +8,7 @@ const CreateProduct = () => {
   const [attributes, setAttributes] = useState([]);
   const [variants, setVariants] = useState([]);
   const editorRef = useRef(null);
-  const getDescription = () => {
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent());
-    }
-  };
+
   const _handleAddAttribute = () => {
     if (attributes.length === 0) {
       setAttributes([
@@ -44,7 +40,7 @@ const CreateProduct = () => {
         errors.value = "At least one value required";
       }
       if (!attribute.name) {
-        errors.name = "cannt found";
+        errors.name = "can not found";
       }
       attribute = Object.assign({}, attribute, { errors });
       const newAttributes = attributes.splice(0, attributes.length - 1);
@@ -70,6 +66,7 @@ const CreateProduct = () => {
     const variants = generateVariants(attributes);
     setVariants(variants);
   }, [attributes]);
+  console.log(variants);
   return (
     <div className="CreateProductPage">
       <h1>Create Product</h1>
