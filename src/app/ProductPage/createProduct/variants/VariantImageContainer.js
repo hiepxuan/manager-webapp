@@ -20,7 +20,9 @@ const VariantImageContainer = () => {
           src={_.get(this.props.variant, "sides[0].thumb", "")}
           className="border"
         /> */}
-        <img src="" />
+        <span class="hiddenFileInput">
+          <input type="file" name="theFile" />
+        </span>
       </div>
 
       {/* <VariantImageModal
