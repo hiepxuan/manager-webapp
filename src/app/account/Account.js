@@ -1,5 +1,69 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import PFTable from "../../Components/Tables/PFTable"
+import { AccountBody } from "./AccountBody"
+import { AccountHead } from "./AccountHead"
+import { faSearch } from "@fortawesome/free-solid-svg-icons"
+import { Button } from "react-bootstrap"
+import { getAccount } from "../../services/api/accountSevice"
+import { useEffect, useState } from "react"
 const Account = () => {
-  return <h1>Account</h1>;
-};
+  const [accounts, getAcounts] = useState([])
 
-export default Account;
+  useEffect(() => {
+    const fetchAccount = async () => {
+      const result = await getAccount()
+      console.log(result)
+    }
+    fetchAccount()
+  }, [])
+
+  return (
+    <div className="AccountPage">
+      <div className="d-flex align-items-center justify-content-between">
+        <h1 className=""> Danh sách người dùng</h1>
+        <Button className="success my-3">Thêm người dùng</Button>
+      </div>
+      <div className="SectionInner">
+        <div className="ProductHeader d-flex align-items-center">
+          <div className="TableLength me-3">
+            Show
+            <select className="ms-2 px-4">
+              <option value="10">10 rows</option>
+              <option value="20">20 rows</option>
+              <option value="50">50 rows</option>
+              <option value="100">100 rows</option>
+            </select>
+          </div>
+          <div className="TableLength me-3">
+            Account
+            <select className="ms-2 px-4">
+              <option value="10">10 rows</option>
+              <option value="20">20 rows</option>
+              <option value="50">50 rows</option>
+              <option value="100">100 rows</option>
+            </select>
+          </div>
+          <div className="form-group me-3 SearchProduct d-flex  align-items-center">
+            <label className="m-0 me-2">Email</label>
+            <input
+              type="text"
+              className="form-control"
+              id="SearchTitleProductMockup"
+              name="title"
+              placeholder="Enter search  account ..."
+            />
+            <FontAwesomeIcon icon={faSearch} className="SearchIcon" />
+          </div>
+        </div>
+      </div>
+      <div className="SectionInner">
+        <PFTable>
+          <AccountHead />
+          <AccountBody />
+        </PFTable>
+      </div>
+    </div>
+  )
+}
+
+export default Account

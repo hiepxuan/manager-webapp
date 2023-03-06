@@ -1,56 +1,57 @@
-import React, { Component, useState } from "react";
-import { FormFeedback, FormText, Input } from "reactstrap";
-
+import React, { Component, useState } from "react"
+import { FormFeedback, FormText, Input } from "reactstrap"
+import slugify from "slugify"
 const InputAttributeValue = (props) => {
-  const { attribute, onChangeAttribute } = props;
+  const { attribute, onChangeAttribute } = props
   const [data, setData] = useState({
     name: "",
     value: "",
     errors: {},
-  });
-  const { name, value, errors } = data;
+  })
+  const { name, value, errors } = data
   const _getInputNamePlaceholder = () => {
     switch (props.attribute.type) {
       case "label":
-        return "e.g. XXL";
+        return "e.g. XXL"
       case "slide":
-        return "e.g. Classic T-Shirt";
+        return "e.g. Classic T-Shirt"
       case "size":
-        return "e.g. XXL";
+        return "e.g. XXL"
       case "color":
-        return "e.g #000000";
+        return "e.g #000000"
       default:
-        return "e.g. Classic T-Shirt";
+        return "e.g. Classic T-Shirt"
     }
-  };
+  }
 
   const _handleChangeInput = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
-  };
+    setData({ ...data, [e.target.name]: e.target.value })
+  }
+  console.log(data)
 
   const _validateInputs = () => {
-    const nameTrimmed = data.name.trim();
-    const valueTrimmed = data.value.trim();
-    const errors = {};
-    setData({ ...data, errors: {} });
+    const nameTrimmed = data.name.trim()
+    const valueTrimmed = data.value.trim()
+    const errors = {}
+    setData({ ...data, errors: {} })
     if (nameTrimmed === "" && attribute.type === "color")
-      errors.name = "Please provide a name";
+      errors.name = "Please provide a name"
 
-    if (valueTrimmed === "") errors.value = "Please provide a value";
+    if (valueTrimmed === "") errors.value = "Please provide a value"
 
     if (attribute.values.some((attValue) => attValue.value === valueTrimmed))
-      errors.value = "This value already existed";
+      errors.value = "This value already existed"
 
-    return errors;
-  };
+    return errors
+  }
 
   const _handleSubmit = (e) => {
-    e.preventDefault();
-    const resultValidation = _validateInputs();
-    const hasError = Object.values(resultValidation).filter(Boolean).length > 0;
+    e.preventDefault()
+    const resultValidation = _validateInputs()
+    const hasError = Object.values(resultValidation).filter(Boolean).length > 0
     if (hasError) {
-      setData({ ...data, errors: resultValidation });
-      return;
+      setData({ ...data, errors: resultValidation })
+      return
     }
     const dataValues = [
       ...attribute.values,
@@ -58,12 +59,12 @@ const InputAttributeValue = (props) => {
         name: attribute.type === "color" ? name : value,
         value: value,
         position: attribute.values.length ? attribute.values.length + 1 : 1,
-        slug: name.toLocaleLowerCase(),
+        slug: slugify(name, { lower: true }),
       },
-    ];
-    onChangeAttribute("values", attribute.position, dataValues);
-    setData({ name: "", value: "", errors: {} });
-  };
+    ]
+    onChangeAttribute("values", attribute.position, dataValues)
+    setData({ name: "", value: "", errors: {} })
+  }
 
   return (
     <td className="InputAttributeValue">
@@ -97,7 +98,7 @@ const InputAttributeValue = (props) => {
         <Input type="submit" className="d-none" />
       </form>
     </td>
-  );
-};
+  )
+}
 
-export default InputAttributeValue;
+export default InputAttributeValue

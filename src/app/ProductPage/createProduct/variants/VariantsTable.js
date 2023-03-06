@@ -1,9 +1,9 @@
-import PropTypes from "prop-types";
-import React from "react";
-import VariantRow from "./VariantRow";
+import PropTypes from "prop-types"
+import React from "react"
+import VariantRow from "./VariantRow"
 
 const VariantsTable = (props) => {
-  const { attributes, variants } = props;
+  const { attributes, variants } = props
   return (
     <div className="VariantsTable mt-3">
       <div className="table-responsive drag VariantsTableContent">
@@ -20,10 +20,9 @@ const VariantsTable = (props) => {
                   >
                     {attribute.name}
                   </th>
-                ) : null;
+                ) : null
               })}
               <th className="col-2 SKU">SKU</th>
-              <th className="col-2 Weight">Weight (gram)</th>
               <th className="col-2 RetailPrice">Price (USD)</th>
               <th className="col-2 MarkDefault">Is default?</th>
             </tr>
@@ -42,12 +41,12 @@ const VariantsTable = (props) => {
         </table>
       </div>
     </div>
-  );
-};
+  )
+}
 
 VariantsTable.propTypes = {
   attributes: PropTypes.array.isRequired,
   variants: PropTypes.array.isRequired,
-};
+}
 
-export default VariantsTable;
+export default VariantsTable

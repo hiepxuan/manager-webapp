@@ -1,9 +1,9 @@
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
-import PFTable from "../../Components/Tables/PFTable";
-import ProductPageBody from "./ProductPageBody";
-import ProductPageTableHead from "./ProductPageTableHead";
+import { faSearch } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { Link } from "react-router-dom"
+import PFTable from "../../Components/Tables/PFTable"
+import ProductPageBody from "./ProductPageBody"
+import ProductPageTableHead from "./ProductPageTableHead"
 const ProductContainer = () => {
   return (
     <div className="ProductPage">
@@ -53,7 +53,7 @@ const ProductContainer = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ProductContainer;
+export default ProductContainer

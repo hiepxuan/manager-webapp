@@ -28,6 +28,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-size: 1.6rem;
 }
 
 html {
@@ -54,4 +55,25 @@ input {
 
 p {
     margin: 0;
+}
+.height-40{
+    height: 40px;
+}
+
+a{
+    text-decoration: none;
+}
+// category
+.dropdown-content{
+    position: relative !important;
+    width: 100%;
+}
+.dropdown{
+    width: 100%;
+}
+.dropdown-trigger{
+width: 100%;
+}
+li , ul{
+    list-style-type: none;
 }

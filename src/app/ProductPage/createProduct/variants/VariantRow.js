@@ -1,10 +1,9 @@
-import React, { Component } from "react";
-import VariantImageContainer from "./VariantImageContainer";
-import VariantSelector from "./VariantSelector";
-import VariantSKU from "./VariantSKU";
-import VariantFromAttributes from "./VariantFromAttributes";
-import VariantRetailPrice from "./VariantRetailPrice";
-import VariantWeight from "./VariantWeight";
+import React, { Component } from "react"
+import VariantFromAttributes from "./VariantFromAttributes"
+import VariantImageContainer from "./VariantImageContainer"
+import VariantRetailPrice from "./VariantRetailPrice"
+import VariantSKU from "./VariantSKU"
+import VariantSelector from "./VariantSelector"
 
 class VariantRow extends Component {
   render() {
@@ -14,12 +13,11 @@ class VariantRow extends Component {
         <VariantImageContainer {...this.props} />
         <VariantFromAttributes {...this.props} />
         <VariantSKU {...this.props} />
-        <VariantWeight {...this.props} />
         <VariantRetailPrice {...this.props} />
         {/* <VariantDefault {...this.props} /> */}
       </tr>
-    );
+    )
   }
 }
 
-export default VariantRow;
+export default VariantRow

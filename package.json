@@ -26,12 +26,18 @@
     "query-string": "^7.1.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
+    "react-customscroll": "^5.1.0",
     "react-dom": "^18.2.0",
+    "react-dropdown-tree-select": "^2.8.0",
+    "react-dropzone": "^14.2.3",
     "react-number-format": "^5.1.1",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
+    "react-toastify": "^9.1.1",
     "reactstrap": "^9.1.5",
     "sass": "^1.56.0",
+    "slugify": "^1.6.5",
+    "store": "^2.0.12",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

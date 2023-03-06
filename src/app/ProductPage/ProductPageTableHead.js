@@ -1,6 +1,6 @@
 const ProductMockupTableHead = () => {
   return (
-    <thead className="ProductMockupTableHead table-light">
+    <thead className=" table-light">
       <tr>
         <th className="  col-1">
           <input type="checkbox" />
@@ -11,7 +11,7 @@ const ProductMockupTableHead = () => {
         <th className="col-1 text-center">Action</th>
       </tr>
     </thead>
-  );
-};
+  )
+}
 
-export default ProductMockupTableHead;
+export default ProductMockupTableHead
