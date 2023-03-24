@@ -4,22 +4,23 @@ function generate() {
   return Array.prototype.reduce.call(
     arguments,
     function (a, b) {
-      let ret = [];
+      let ret = []
       a.forEach(function (a) {
         b.forEach(function (b) {
-          ret.push(a.concat([b]));
-        });
-      });
-      return ret;
+          ret.push(a.concat([b]))
+        })
+      })
+      return ret
     },
     [[]]
-  );
+  )
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default function (attributes) {
-  const canGenerate = Object.values(attributes).filter(Boolean).length === 0;
+  const canGenerate = Object.values(attributes).filter(Boolean).length === 0
 
-  if (canGenerate) return [];
+  if (canGenerate) return []
 
   const attributesReformatted = attributes.map((attribute) => {
     return attribute.values.map((attValue) => {
@@ -28,25 +29,21 @@ export default function (attributes) {
         value: attValue.value,
         position: attValue.position,
         slug: attValue.slug,
-      };
-    });
-  });
+      }
+    })
+  })
 
-  let variants = generate(...attributesReformatted);
+  let variants = generate(...attributesReformatted)
 
   variants = variants.map((options, index) => {
-    const imagePath = options.reduce((acc, option, index) => {
-      return option.is_preselected ? [...acc, option.value] : acc;
-    }, []);
-
     return {
       is_selected: true,
       is_default: index === 0,
       sku: "",
       retail_price: 0,
       options: options,
-      image_path: imagePath.join("/"),
-    };
-  });
-  return variants;
+      technique: "",
+    }
+  })
+  return variants
 }

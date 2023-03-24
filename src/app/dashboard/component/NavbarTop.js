@@ -1,16 +1,13 @@
-import {
-  faBars,
-  faLink,
-  faSquareArrowUpRight,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext } from "react";
-import { Link } from "react-router-dom";
-import { DataContext } from "../../../context/AppContext";
+/* eslint-disable jsx-a11y/alt-text */
+import { faBars, faSquareArrowUpRight } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { useContext } from "react"
+import { Link } from "react-router-dom"
+import { DataContext } from "../../../context/AppContext"
 
-const logo = require("../../../statics/assets/logo.jpg");
+const logo = require("../../../assets/image/logo.png")
 const NavbarTop = () => {
-  const { setIsCollapsed, isCollapsed } = useContext(DataContext);
+  const { setIsCollapsed, isCollapsed } = useContext(DataContext)
   return (
     <div className="NavbarTop">
       <ul className="NavLeft">
@@ -35,7 +32,7 @@ const NavbarTop = () => {
         </li>
       </ul>
     </div>
-  );
-};
+  )
+}
 
-export default NavbarTop;
+export default NavbarTop

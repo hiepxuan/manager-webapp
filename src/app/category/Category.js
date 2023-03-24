@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react"
-import { Col, Dropdown, Form, Row } from "react-bootstrap"
+import { Dropdown } from "react-bootstrap"
 import "react-dropdown-tree-select/dist/styles.css"
 import { Link } from "react-router-dom"
-import PFTable from "../../Components/Tables/PFTable"
 import { getCategories } from "../../services/api/categoryApiService"
-import CategoryTableBody from "./CategoryTableBody"
-import CategoryTableHead from "./CategoryTableHead"
 import MenuItem from "./createCategory/MenuItem"
 
 const Category = () => {

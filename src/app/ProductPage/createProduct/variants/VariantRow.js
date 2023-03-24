@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { Technique } from "./Technique"
 import VariantFromAttributes from "./VariantFromAttributes"
 import VariantImageContainer from "./VariantImageContainer"
 import VariantRetailPrice from "./VariantRetailPrice"
@@ -14,7 +15,7 @@ class VariantRow extends Component {
         <VariantFromAttributes {...this.props} />
         <VariantSKU {...this.props} />
         <VariantRetailPrice {...this.props} />
-        {/* <VariantDefault {...this.props} /> */}
+        <Technique {...this.props} />
       </tr>
     )
   }

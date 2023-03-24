@@ -1,26 +1,23 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react"
+import { Link } from "react-router-dom"
 
-const bg = require("../../../statics/assets/img/bg-up.jpg");
-const login = require("../../../statics/assets/img/login.png");
-const fb = require("../../../statics/assets/img/fb.png");
-const gg = require("../../../statics/assets/img/gg.png");
+const bg = require("../../../statics/assets/img/bg-up.jpg")
+const login = require("../../../statics/assets/img/login.png")
 const SignUp = () => {
   const [valueSignIn, setValueSignIn] = useState({
     email: "",
     password: "",
     confPassword: "",
-  });
-  const { email, password, confPassword } = valueSignIn;
+  })
+  const { email, password, confPassword } = valueSignIn
   const changeValue = (e) => {
-    setValueSignIn({ ...valueSignIn, [e.target.name]: e.target.value });
-  };
+    setValueSignIn({ ...valueSignIn, [e.target.name]: e.target.value })
+  }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    alert("ok");
-  };
-  console.log(valueSignIn);
+    e.preventDefault()
+    alert("ok")
+  }
 
   return (
     <div className="Sign-in" style={{ backgroundImage: `url(${bg})` }}>
@@ -88,7 +85,7 @@ const SignUp = () => {
         <h1>SignUp</h1>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SignUp;
+export default SignUp

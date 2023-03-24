@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import InputAttributeName from "./InputAttributeName";
-import InputAttributeType from "./InputAttributeType";
-import InputAttributeValue from "./InputAttributeValue";
-import PreviewAttributeValues from "./PreviewAttributeValues";
+import React from "react"
+import InputAttributeName from "./InputAttributeName"
+import InputAttributeType from "./InputAttributeType"
+import InputAttributeValue from "./InputAttributeValue"
+import PreviewAttributeValues from "./PreviewAttributeValues"
 
 const AttributeItem = (props) => {
   return (
@@ -12,8 +12,8 @@ const AttributeItem = (props) => {
       <InputAttributeValue {...props} />
       <PreviewAttributeValues {...props} />
     </tr>
-  );
-};
+  )
+}
 
 const ProductAttributesList = (props) => {
   return (
@@ -50,7 +50,7 @@ const ProductAttributesList = (props) => {
         </table>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ProductAttributesList;
+export default ProductAttributesList

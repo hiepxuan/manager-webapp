@@ -1,38 +1,51 @@
-import React, { Component } from "react";
-import { Input } from "reactstrap";
+import React from "react"
+import { Input } from "reactstrap"
 
 //import PropTypes from 'prop-types'
 
 const InputAttributeType = (props) => {
-  const { onChangeAttribute, attribute } = props;
+  const { onChangeAttribute, attribute, attributes } = props
 
   const _handleChangeSelect = (e) => {
-    const { value } = e.target;
-    onChangeAttribute("type", attribute.position, value);
-  };
+    const { value } = e.target
+    onChangeAttribute("type", attribute.position, value)
+  }
 
-  //   const type = (this.props.attribute.type || "").toLocaleLowerCase();
+  const attributeType = attributes.map((attribute) => attribute.type)
   return (
     <td className="InputAttributeType">
       <Input
-        // disabled={true}
-        // value={type}
         type="select"
         className="InputAttributeType"
         onChange={_handleChangeSelect}
       >
-        <option selected defaultValue={"DEFAULT"} disabled>
+        <option defaultValue={"DEFAULT"} selected disabled>
           Chose
         </option>
-        <option value="color">Color</option>
-        <option value="size">Size</option>
+        <option
+          selected={attribute.type === "color"}
+          disabled={attributeType.some((type) => type === "color")}
+          value="color"
+        >
+          Color
+        </option>
+        <option
+          selected={attribute.type === "size"}
+          disabled={attributeType.some((type) => type === "size")}
+          value="size"
+        >
+          Size
+        </option>
+        <option
+          selected={attribute.type === "memory"}
+          disabled={attributeType.some((type) => type === "memory")}
+          value="memory"
+        >
+          Memory
+        </option>
       </Input>
     </td>
-  );
-};
+  )
+}
 
-//InputAttributeType.defaultProps = {}
-
-//InputAttributeType.propTypes = {}
-
-export default InputAttributeType;
+export default InputAttributeType

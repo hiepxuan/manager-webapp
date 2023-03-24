@@ -1,11 +1,12 @@
-import React, { Component } from "react";
-import { Input } from "reactstrap";
+/* eslint-disable no-unused-vars */
+import React from "react"
+import { Input } from "reactstrap"
 
 const VariantSelector = (props) => {
-  const { variant, variantIndex, onChangeProduct } = props;
+  const { variant, variantIndex, onChangeProduct } = props
   const _handleChangeInput = (e) => {
     // onChangeProduct(`variants[${variantIndex}].is_selected`, e.target.checked);
-  };
+  }
 
   return (
     <td className="VariantSelector">
@@ -17,7 +18,7 @@ const VariantSelector = (props) => {
         onChange={_handleChangeInput}
       />
     </td>
-  );
-};
+  )
+}
 
-export default VariantSelector;
+export default VariantSelector

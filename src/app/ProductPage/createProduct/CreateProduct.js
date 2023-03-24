@@ -1,20 +1,28 @@
-import { Editor } from "@tinymce/tinymce-react"
-import { useCallback, useEffect, useRef, useState } from "react"
-import { Button, Col, Form, FormText, Row } from "react-bootstrap"
+import _ from "lodash"
+import { useCallback, useEffect, useState } from "react"
+import { Button, Col, Form, Row } from "react-bootstrap"
 import { useDropzone } from "react-dropzone"
-import { Input } from "reactstrap"
+import { toast } from "react-toastify"
+import { TextEditor } from "../../../Components/TextEditor"
 import generateVariants from "../../../helpers/generateVariants"
+import { createProduct } from "../../../services/api/productService"
+import { CategoryProduct } from "./CategoryProduct"
+import { CreateProductRight } from "./CreateProductRight"
 import ProductAttributesList from "./attributes/ProductAttributesList"
 import VariantsTable from "./variants/VariantsTable"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faClose } from "@fortawesome/free-solid-svg-icons"
+import { uploadImage } from "../../../services/api/createApiServices"
+import { EditorCk } from "../../../Components/textEditorCk/EditorCk"
+
 const CreateProduct = () => {
   const [attributes, setAttributes] = useState([])
   const [variants, setVariants] = useState([])
   const [files, setFiles] = useState([])
-  const [data, setData] = useState()
+  const [description, setDescription] = useState("")
+  const [childCategory, setChildCategory] = useState({})
   const [tags, setTags] = useState([])
-  const editorRef = useRef(null)
+  const [category, setCategory] = useState("")
+  const [showBtn, setShowBtn] = useState(false)
+  const [error, setError] = useState("")
   const _handleAddAttribute = () => {
     if (attributes.length === 0) {
       setAttributes([
@@ -28,6 +36,7 @@ const CreateProduct = () => {
         },
       ])
     }
+
     let attribute = attributes[attributes.length - 1]
     const errors = {}
     if (attribute.name && attribute.values.length) {
@@ -73,97 +82,201 @@ const CreateProduct = () => {
     setVariants(variants)
   }, [attributes])
 
+  const changeVariant = (variant, field, data) => {
+    const keyVariant = _.get(variant, "options")
+      .map((item) => item.name)
+      .join("/")
+    variants.length > 0 &&
+      variants.map((item) => {
+        const option = _.get(item, "options")
+        const key = option.length && option.map((item) => item.name).join("/")
+        if (key === keyVariant) {
+          item[field] = data
+        }
+        return item
+      })
+  }
   const onDrop = useCallback(
-    (acceptedFiles) => {
+    async (acceptedFiles) => {
       setFiles([...files, ...acceptedFiles])
     },
     [files]
   )
-
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
-  const _handleChangeInput = (e) => {
-    setData(e.target.value)
+
+  const [data, setData] = useState({
+    name: "",
+    price: "",
+  })
+  const { name, price } = data
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value })
+    // setError({ ...error, [e.target.name]: "" })
   }
-  const _handleSubmit = (e) => {
-    e.preventDefault()
-    setTags([...tags, data])
-    setData("")
+  const handleFocus = (e) => {
+    setError({ ...error, [e.target.name]: e.target.value })
   }
 
-  const handleDelete = () => {}
+  let err = {}
+  const handleSubmit = async () => {
+    const newProduct = {
+      name,
+      price,
+      tags,
+      category,
+      childCategory: childCategory,
+      attributes,
+      variants,
+      description,
+    }
+    if (!name) err.name = "Vui lòng nhập tên sản phẩm"
+    if (!price) err.price = "Vui lòng nhập giá sản phẩm"
+    if (!category.length > 0)
+      err.category = "Vui lòng chọn danh mục sản phẩm sản phẩm"
+    if (!files.length > 0) err.images = "Vui lòng chọn ảnh của sản phẩm"
+    if (!description) err.description = "Vui lòng viết mô tả sản phẩm"
+    const form_data = new FormData()
+    for (let i = 0; i < files.length; i++) {
+      form_data.append(`image`, files[i])
+    }
+    const { data, success, message } = await uploadImage(form_data)
+    if (!success) throw new Error(message)
+
+    newProduct.images = data.map((item) => {
+      return item.filename
+    })
+
+    setError(err)
+    if (Object.values(err).length !== 0) return
+    const { success: successCre, message: messageCre } = await createProduct(
+      newProduct
+    )
+
+    if (!successCre) throw new Error(messageCre)
+    toast("🦄 Wow so easy!", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    })
+    window.location.reload()
+  }
+
   return (
     <div className="CreateProductPage">
       <h1>Create Product</h1>
       <Row>
         <Form.Group as={Col} md="8">
-          <div className="SectionInner">
-            <Form md="3">
+          <Form md="3">
+            <div className="SectionInner">
               <Row className="mb-3">
                 <Form.Group as={Col} md="6" controlId="validationCustom01">
-                  <Form.Label>Tên sản phẩm</Form.Label>
+                  <h1>
+                    Tên sản phẩm <span className="text-danger ml-1">(*)</span>
+                  </h1>
                   <Form.Control
                     required
                     name="name"
                     type="text"
                     placeholder="First name"
+                    onChange={handleChange}
+                    onFocus={handleFocus}
                   />
                   <Form.Control.Feedback type="invalid">
                     Vui lòng nhập !
                   </Form.Control.Feedback>
                 </Form.Group>
+                {error.name && (
+                  <span
+                    className="fw-lighter fst-italic"
+                    style={{ color: "red" }}
+                  >
+                    {error.name}
+                  </span>
+                )}
               </Row>
+            </div>
+
+            <div className="SectionInner">
               <Row>
                 <Form.Group as={Col} md="4" controlId="validationCustom02">
-                  <Form.Label>Giá sản phẩm</Form.Label>
+                  <h1>
+                    Giá sản phẩm <span className="text-danger ml-1">(*)</span>
+                  </h1>
 
-                  <Form.Control type="text" name="price" required />
+                  <Form.Control
+                    type="text"
+                    name="price"
+                    required
+                    onChange={handleChange}
+                    onFocus={handleFocus}
+                  />
                   <Form.Control.Feedback type="invalid">
                     Vui lòng nhập giá
                   </Form.Control.Feedback>
+                  {error.price && (
+                    <span
+                      className="fw-lighter fst-italic"
+                      style={{ color: "red" }}
+                    >
+                      {error.price}
+                    </span>
+                  )}
                 </Form.Group>
               </Row>
+            </div>
+
+            <div className="SectionInner">
               <Row>
-                <Form.Group as={Col} md="4" className="mt-4">
-                  <Form.Label>Danh mục sản phẩm</Form.Label>
-                  <select
-                    defaultValue={"DEFAULT"}
-                    name="category_id"
-                    className="custom-select ms-5 px-4"
-                    id="validationCustom03"
-                    // onChange={handleChange}
-                    required
-                  >
-                    <option selected value="DEFAULT">
-                      Chọn danh mục
-                    </option>
-                    <option value="a">Chọn danh mục</option>
-                  </select>
-                  <div className="invalid-feedback">
-                    Please select a valid state.
-                  </div>
+                <Form.Group as={Col} md="12" className="mt-4">
+                  <CategoryProduct
+                    childCategory={childCategory}
+                    category={category}
+                    setCategory={setCategory}
+                    setChildCategory={setChildCategory}
+                  />
                 </Form.Group>
                 <Form.Control.Feedback type="invalid">
                   Vui lòng chọn danh mục
                 </Form.Control.Feedback>
+                {error.category && (
+                  <span
+                    className="fw-lighter fst-italic"
+                    style={{ color: "red" }}
+                  >
+                    {error.category}
+                  </span>
+                )}
               </Row>
+            </div>
+
+            <div className="SectionInner">
               <Row>
                 <Form.Group md="12" as={Col} controlId="validationCustom05">
-                  <Form.Label>Mô tả sản phẩm</Form.Label>
-                  <Editor
-                    onInit={(evt, editor) => (editorRef.current = editor)}
-                    init={{
-                      height: 500,
-                      menubar: false,
-                      content_style:
-                        "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
-                    }}
-                  />
+                  <h1>
+                    Mô tả sản phẩm <span className="text-danger ml-1">(*)</span>
+                  </h1>
+                  <TextEditor setDescription={setDescription} />
+                  {error.description && (
+                    <span
+                      className="fw-lighter fst-italic"
+                      style={{ color: "red" }}
+                    >
+                      {error.description}
+                    </span>
+                  )}
                 </Form.Group>
               </Row>
-            </Form>
-          </div>
+            </div>
+          </Form>
           <div className="SectionInner">
-            <h1>Product Image</h1>
+            <h1>
+              Product Image <span className="text-danger ml-1">(*)</span>
+            </h1>
             <div {...getRootProps()}>
               <input {...getInputProps()} />
               {isDragActive ? (
@@ -173,14 +286,20 @@ const CreateProduct = () => {
               )}
             </div>
           </div>
-          <div className="SectionInner">
+          {error.images && (
+            <span className="fw-lighter fst-italic" style={{ color: "red" }}>
+              {error.images}
+            </span>
+          )}
+          <div className="SectionInner d-flex gap-3">
             {files.map((file) => (
-              <img
-                style={{ height: "100px", width: "200px" }}
-                src={URL.createObjectURL(file)}
-                key={file.name}
-                alt={file.name}
-              />
+              <div style={{ height: "100px", width: "200px" }}>
+                <img
+                  src={URL.createObjectURL(file)}
+                  key={file.name}
+                  alt={file.name}
+                />
+              </div>
             ))}
           </div>
           <div className="SectionInner">
@@ -208,51 +327,25 @@ const CreateProduct = () => {
           </div>
           <div className="SectionInner">
             <h1>Biến thể của sản phẩm</h1>
-            <p>Quản lí các biến thể c</p>
+            <p>Quản lí các biến thể của sản phẩm</p>
             <div className="VariantsTableContainer">
-              <VariantsTable attributes={attributes} variants={variants} />
+              <VariantsTable
+                setShowBtn={setShowBtn}
+                showBtn={showBtn}
+                changeVariant={changeVariant}
+                attributes={attributes}
+                variants={variants}
+              />
             </div>
           </div>
         </Form.Group>
         <Form.Group as={Col} md="4">
-          <div className="SectionInner h-100">
-            <Form onSubmit={_handleSubmit}>
-              <h1>Tags</h1>
-              <div className="d-flex gap-3">
-                {tags.length &&
-                  tags.map((item, key) => {
-                    return (
-                      <div
-                        key={key}
-                        className="d-flex gap-2 px-3 bg-primary text-white  rounded-3"
-                      >
-                        <span>{item}</span>
-                        <p
-                          onClick={() => handleDelete(item)}
-                          className="pointer"
-                        >
-                          <FontAwesomeIcon icon={faClose} />
-                        </p>
-                      </div>
-                    )
-                  })}
-              </div>
-              <Input
-                name="value"
-                value={data}
-                autoComplete="off"
-                className="mt-2"
-                onChange={_handleChangeInput}
-              />
-              <FormText>Enter to add new value</FormText>
-              <Input type="submit" className="d-none" />
-            </Form>
-          </div>
+          <CreateProductRight tags={tags} setTags={setTags} />
         </Form.Group>
       </Row>
       <div className="SectionInner FooterCreate">
         <div className="">
-          <button>Tạo danh mục mới</button>
+          <button onClick={() => handleSubmit()}>Tạo Sản phẩm</button>
         </div>
       </div>
     </div>

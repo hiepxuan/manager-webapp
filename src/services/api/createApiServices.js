@@ -43,7 +43,7 @@ const _makeAuthRequest = (createRequest) => async (args) => {
   return await _makeRequest(createRequest)(args)
 }
 // eslint-disable-next-line import/no-anonymous-default-export
-export default (_options = {}) => {
+const createAPIServices = (_options = {}) => {
   const baseUrlValidated = _options.baseUrl
 
   const configs = {
@@ -60,3 +60,13 @@ export default (_options = {}) => {
     makeAuthRequest: _makeAuthRequest(instance),
   }
 }
+const baseUrl = "http://localhost:5005"
+const api = createAPIServices({ baseUrl })
+export const uploadImage = (data) => {
+  return api.makeRequest({
+    url: "/upload",
+    method: "post",
+    data,
+  })
+}
+export default createAPIServices

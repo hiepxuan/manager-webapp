@@ -3,6 +3,9 @@ import Category from "./app/category/Category"
 import CreateCategory from "./app/category/createCategory/CreateCategory"
 import CreateProduct from "./app/ProductPage/createProduct/CreateProduct"
 import ProductContainer from "./app/ProductPage/ProductPage"
+import { CreateSlider } from "./app/Slider/CreateSlider"
+import { EditSlider } from "./app/Slider/EditSlider"
+import { Slider } from "./app/Slider/Slider"
 
 const routes = [
   {
@@ -44,6 +47,30 @@ const routes = [
     route: "/category/create",
     layout: "admin",
     component: <CreateCategory />,
+  },
+  {
+    type: "collapse",
+    name: "Slider",
+    key: "slider",
+    route: "/slider",
+    layout: "admin",
+    component: <Slider />,
+  },
+  {
+    type: "collapse",
+    name: "Slider",
+    key: "slider",
+    route: "/slider/create",
+    layout: "admin",
+    component: <CreateSlider />,
+  },
+  {
+    type: "collapse",
+    name: "Slider",
+    key: "slider",
+    route: "/slider/edit-slider/:id",
+    layout: "admin",
+    component: <EditSlider />,
   },
 ]
 export default routes

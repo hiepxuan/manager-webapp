@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react"
 import { Button, Col, Form } from "react-bootstrap"
+import { toast } from "react-toastify"
 import { Row } from "reactstrap"
-import { ToastContainer, toast } from "react-toastify"
 import {
   createCategory,
   getCategories,
@@ -41,19 +42,22 @@ export default function CreateCategory() {
       setValidated(true)
     } else {
       setLoading(true)
-      // const { success, data } = await createCategory(name, categoryParent)
-      toast("🦄 Wow so easy!", {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      })
+      // eslint-disable-next-line no-unused-vars
+      const { success, data } = await createCategory(name, categoryParent)
+      if (success) {
+        toast("🦄 Wow so easy!", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+        window.location.reload()
+      }
       setLoading(false)
-      window.location.reload()
     }
   }
 

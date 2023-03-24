@@ -1,9 +1,10 @@
 import PropTypes from "prop-types"
-import React from "react"
+import React, { useState } from "react"
 import VariantRow from "./VariantRow"
 
 const VariantsTable = (props) => {
   const { attributes, variants } = props
+
   return (
     <div className="VariantsTable mt-3">
       <div className="table-responsive drag VariantsTableContent">
@@ -11,7 +12,7 @@ const VariantsTable = (props) => {
           <thead>
             <tr>
               <th className="col-1 Selector">#</th>
-              <th className="col-1 Image">image</th>
+              <th className="col-1 Image">ảnh</th>
               {attributes.map((attribute, index) => {
                 return attribute.name && attribute.values.length > 0 ? (
                   <th
@@ -23,8 +24,8 @@ const VariantsTable = (props) => {
                 ) : null
               })}
               <th className="col-2 SKU">SKU</th>
-              <th className="col-2 RetailPrice">Price (USD)</th>
-              <th className="col-2 MarkDefault">Is default?</th>
+              <th className="col-2 RetailPrice">Giá (USD)</th>
+              <th className="col-2 MarkDefault">Thông số</th>
             </tr>
           </thead>
 

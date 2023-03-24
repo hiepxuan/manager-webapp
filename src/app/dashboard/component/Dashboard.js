@@ -1,16 +1,9 @@
 import classNames from "classnames"
 import { useContext, useEffect } from "react"
-import {
-  Navigate,
-  Redirect,
-  Route,
-  Routes,
-  useNavigate,
-} from "react-router-dom"
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom"
+import routes from "../../../_routes"
 import { DataContext } from "../../../context/AppContext"
 import Admin from "../../../layouts/Admin"
-import routes from "../../../_routes"
-import ProductContainer from "../../ProductPage/ProductPage"
 import NavbarLeft from "./NavbarLeft"
 import NavbarTop from "./NavbarTop"
 
@@ -37,6 +30,7 @@ const Dashboard = (props) => {
   const { isCollapsed } = useContext(DataContext)
   useEffect(() => {
     if (!isAuth) navigate("/sign-up")
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuth])
 
   return (

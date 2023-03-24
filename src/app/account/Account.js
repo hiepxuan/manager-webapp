@@ -1,18 +1,19 @@
+/* eslint-disable no-unused-vars */
+import { faSearch } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { useEffect, useState } from "react"
+import { Button } from "react-bootstrap"
 import PFTable from "../../Components/Tables/PFTable"
+import { getAccount } from "../../services/api/accountSevice"
 import { AccountBody } from "./AccountBody"
 import { AccountHead } from "./AccountHead"
-import { faSearch } from "@fortawesome/free-solid-svg-icons"
-import { Button } from "react-bootstrap"
-import { getAccount } from "../../services/api/accountSevice"
-import { useEffect, useState } from "react"
 const Account = () => {
   const [accounts, getAcounts] = useState([])
 
   useEffect(() => {
     const fetchAccount = async () => {
+      // eslint-disable-next-line no-unused-vars
       const result = await getAccount()
-      console.log(result)
     }
     fetchAccount()
   }, [])

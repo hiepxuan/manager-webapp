@@ -1,10 +1,10 @@
-import { NavLink, useLocation } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import classNames from "classnames";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import classNames from "classnames"
+import { NavLink } from "react-router-dom"
 
 const MenuItem = (props) => {
-  const { item, pathname } = props;
-  const { title, icon, href } = item;
+  const { item } = props
+  const { title, icon, href } = item
   return (
     <div className="">
       <NavLink to={href} className={classNames("nav-link")}>
@@ -14,7 +14,7 @@ const MenuItem = (props) => {
         <span className="Title mr-auto">{title}</span>
       </NavLink>
     </div>
-  );
-};
+  )
+}
 
-export default MenuItem;
+export default MenuItem

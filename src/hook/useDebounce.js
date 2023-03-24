@@ -1,13 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react"
+
 function useDebounce(value, delay) {
-    const [debounceValue, setDebounceValue] = useState(value);
-    useEffect(() => {
-        const handler = setTimeout(() => {
-            setDebounceValue(value);
-        }, delay);
-        return () => clearTimeout(handler);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [value]);
-    return debounceValue;
+  const [debouncedValue, setDebouncedValue] = useState(value)
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value)
+    }, delay)
+
+    // Xóa timeout khi giá trị `value` thay đổi
+    // Chỉ khi đạt được giá trị cuối cùng mới gọi API
+    return () => {
+      clearTimeout(handler)
+    }
+  }, [value, delay])
+
+  return debouncedValue
 }
-export default useDebounce;
+
+export default useDebounce
